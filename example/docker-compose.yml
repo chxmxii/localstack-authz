@@ -6,32 +6,30 @@ services:
     environment:
       - DEBUG=1
       - LOCALSTACK_AUTH_TOKEN=<REDACTED>
-      - SKIP_SSL_CERT_DOWNLOAD=1
+      - SKIP_SSL_CERT_DOWNLOAD=1 #this is important 
       - PERSISTENCE=0
       - LS_LOG=trace
-      - AUTO_LOAD_POD=pizzahub
-      - ENFORCE_IAM=1
-      - AWS_ACCESS_KEY_ID=AKIA2L03056B890WYAAZ
-      - AWS_SECRET_ACCESS_KEY=AKIA2L03056B890WYAAZ
+      - ENFORCE_IAM=1 #this is needed to enforce iam policy
+      - AWS_ACCESS_KEY_ID=dummyaccesskeys
+      - AWS_SECRET_ACCESS_KEY=dummysecretkeys
       - AWS_DEFAULT_REGION=eu-west-1
-      - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
       - lsnet
 
   authz:
-    image: chxmxii/localstack-authz
+    build:
+      context: ..
     container_name: authz
     depends_on: [localstack]
     environment:
-      - ALLOWED_KEYS=AKIA2L03056B890WYAAZ,LKIAQAAAAAAAN7PNUWLO #add your allowed access keys here
+      - ALLOWED_KEYS=dummyaccesskeys,AKIA2L03056B890WYAAZ,LKIAQAAAAAAAN7PNUWLO #add your allowed access keys here
       - AUTHZ_DEBUG=true #enable debug logging
     networks: [lsnet]
 
 
   proxy:
-    image: nginx:latest
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    build:
+      context: ../proxy
     container_name: proxy
     ports:
       - "80:80"
