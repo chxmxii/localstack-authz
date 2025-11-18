@@ -1,0 +1,9 @@
+.github/
+.venv/
+.example/
+.proxy/
+README.md
+Makefile
+Dockerfile
+.uv/
+uv.lock.bak

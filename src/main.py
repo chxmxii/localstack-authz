@@ -2,7 +2,7 @@ import os, re
 from fastapi import FastAPI, Request, Response
 from fastapi.responses import PlainTextResponse
 
-app = FastAPI()
+server = FastAPI()
 
 ALLOWED = {k.strip() for k in os.environ.get("ALLOWED_KEYS", "").split(",") if k.strip()}
 DEBUG = os.environ.get("AUTHZ_DEBUG", "false").lower() == "true"
@@ -41,7 +41,7 @@ def extract_access_key(req: Request) -> str | None:
 
     return None
 
-@app.api_route("/authz", methods=["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"]) 
+@server.api_route("/authz", methods=["GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH"]) 
 async def authz(request: Request):
     akid = extract_access_key(request)
 
