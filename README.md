@@ -6,9 +6,9 @@ AuthZ is a lightweight security layer to localstack that prevents unauthorized a
 
 ```mermaid
 graph LR
-    User["User / AWS CLI / SDK"] --> NGINX["NGINX Proxy"]
-    NGINX -->|Subrequest: /_authz| AuthZ["AuthZ Service<br/>AccessKeyId Validator"]
-    NGINX -->|Forward Valid Requests| LocalStack["LocalStack (AWS APIs)"]
+    User["User "] --> NGINX["NGINX"]
+    NGINX -->|subreq: /_authz| AuthZ["AuthZ"]
+    NGINX -->|forward traffic| LocalStack["LocalStack"]
     
     AuthZ -->|Allow / Deny| NGINX
     LocalStack --> NGINX
