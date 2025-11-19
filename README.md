@@ -1,6 +1,6 @@
 # LocalStack AuthZ
 
-AuthZ is a lightweight security layer to localstack that prevents unauthorized access. It extracts the **AccessKeyId** from the request allowing only whitelisted keys to proceed.
+a lightweight security layer for LocalStack that blocks unauthorized requests. It extracts the AccessKeyId from each request and allows only whitelisted keys to pass through.
 
 ## Architecture
 
@@ -18,7 +18,7 @@ graph LR
 
 ```yml
 services:
-  localstack:
+  localstack: # u have to ensure that localstack is not reachable to the outside network.
     .
     .
     .
@@ -51,8 +51,6 @@ networks:
     driver: bridge
     external: false
 ```
-
->  but first, ensure that localstack is not reachable to the outside network.
 
 ### Contribute
 Feel free to open an issue or a PR if you have any ideas.
