@@ -26,13 +26,12 @@ services:
       - lsnet
 
   authz:
-    build:
-      context: ..
+    image: chxmxi/localstack-authz:latest
     container_name: authz
     depends_on: [localstack]
     environment:
-      - ALLOWED_KEYS=dummyaccesskeys,AKIA2L03056B890WYAAZ,LKIAQAAAAAAAN7PNUWLO #add your allowed access keys here
-      - AUTHZ_DEBUG=true #enable debug logging
+      - ALLOWED_KEYS=dummyaccesskeys,AKIA2L03056B890WYAAZ,LKIAQAAAAAAAN7PNUWLO #add your AKs whitelist
+      - AUTHZ_DEBUG=true #enable debug 
     networks: [lsnet]
 
   proxy:
